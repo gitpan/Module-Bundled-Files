@@ -13,11 +13,11 @@ Module::Bundled::Files - Access files bundled with Module
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =head1 SYNOPSIS
 
@@ -147,11 +147,14 @@ sub mbf_dir(;$)
     my $module = shift;
     $module = ref($module) if ref($module);
     # Convert My::Module into My/Module.pm
-    my $shortpath = catdir(split(/::/,$module)).'.pm';
+    # %INC uses '/' for delimiters, even on Windows
+    my $shortpath = join('/',split(/::/,$module)).'.pm';
     die "Short path not generated for $module" unless $shortpath;
     # Find the complete path for the module
     my $fullpath = $INC{$shortpath};
     die "Full path not found in \%INC for '$shortpath'" unless $fullpath;
+    # convert the '/' delimiters in %INC to those used by the OS
+    $fullpath = catfile(split(m|/|,$fullpath));
     # Strip the .pm to get the directory name
     $fullpath =~ s|\.pm$||;
     return $fullpath;
@@ -206,8 +209,7 @@ sub mbf_path($;$)
                 last;
             }
         }
-        die "File not found: '$filename' for module '$module_name'"
-            unless $found;
+        die "File not found: '$filename'" unless $found;
     }
     my $dir = mbf_dir($module);
     my $fullpath = catfile($dir,$filename);

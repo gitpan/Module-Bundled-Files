@@ -1,6 +1,5 @@
 Build.PL
 Changes
-.cvsignore
 lib/Module/Bundled/Files.pm
 Makefile.PL
 MANIFEST
