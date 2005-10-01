@@ -5,7 +5,8 @@ WriteMakefile
           'NAME' => 'Module::Bundled::Files',
           'VERSION_FROM' => 'lib/Module/Bundled/Files.pm',
           'PREREQ_PM' => {
-                           'File::Spec' => '0.82',
+                           'Class::ISA' => '0',
+                           'File::Spec' => '0',
                            'Module::Build' => '0.26',
                            'Test::More' => '0'
                          },

@@ -1,7 +1,19 @@
-Revision history for Module-Bundled-Files
+Fri Sep  2 23:56:34 BST 2005  Paul Campbell <kemitix@gmail.com>
+  * Minor house keeping
 
-0.01    Date/time
-        First version, released on an unsuspecting world.
+Fri Sep  2 22:03:41 BST 2005  Paul Campbell <kemitix@gmail.com>
+  tagged 0.02
+
+Fri Sep  2 21:58:01 BST 2005  Paul Campbell <kemitix@gmail.com>
+  * Fix Bug: RT#14424 - %INC uses '/', even on Windows
+  The %INC uses '/' as a directory delimiter on Windows, even though
+  the OS delimiter is '\'.  Thanks to Martin Thurn for the bug report.
+
+Wed Aug 31 13:01:35 BST 2005  Paul Campbell <kemitix@gmail.com>
+  tagged 0.01
+
+Wed Aug 31 13:00:14 BST 2005  Paul Campbell <kemitix@gmail.com>
+  * Update Changes and README
 
 Sat Aug 27 23:38:31 BST 2005  Paul Campbell <kemitix@gmail.com>
   * Search for files in inherited Modules

@@ -9,9 +9,10 @@ my $builder = Module::Build->new(
     dist_version_from   => 'lib/Module/Bundled/Files.pm',
     requires => {
         'Module::Build'
-                     => 0.26,
+                     => 0.26, # add_build_element() appears in 0.2607
         'Test::More' => 0,
-        'File::Spec' => 0.82,
+        'File::Spec' => 0,
+        'Class::ISA'  => 0,
     },
     create_makefile_pl => 'traditional',
     add_to_cleanup      => [ 'Module-Bundled-Files-*' ],

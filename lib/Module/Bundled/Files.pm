@@ -13,11 +13,11 @@ Module::Bundled::Files - Access files bundled with Module
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 SYNOPSIS
 
@@ -32,7 +32,18 @@ In I<Build.PL>:
   my $build = new Module::Build(...);
   map{$build->add_build_element($_);}
     qw{txt html tmpl};
-  # installs all .txt, .html and .tmpl files in the lib/ tree
+  # installs all .txt, .html and .tmpl files found in the lib/ tree
+  
+Create files:
+
+  Build.PL
+  lib/
+    My/
+      Module.pm
+      Module/
+        index.html
+        data.txt
+        form.tmpl
   
 =head2 Object-Oriented Interface
 
@@ -41,6 +52,7 @@ In I<Build.PL>:
   if($self->mbf_exists('data.txt')){...}
   
   my $filename = $self->mbf_path('data.txt');
+  # $filename = '/usr/local/share/perl/5.8.7/My/Module/data.txt';
   open my $fh, '<', $filename or die $@;
   
   my $fh = $self->mbf_open('data.txt');
@@ -209,7 +221,8 @@ sub mbf_path($;$)
                 last;
             }
         }
-        die "File not found: '$filename'" unless $found;
+        die "File not found: '$filename' for module '$module_name'"
+            unless $found;
     }
     my $dir = mbf_dir($module);
     my $fullpath = catfile($dir,$filename);
@@ -250,6 +263,7 @@ sub mbf_read($;$)
     my $filename = shift;
     my $fh = mbf_open($module,$filename);
     my $content = '';
+    local $_;
     while(<$fh>){$content.=$_;}
     return $content;
 }
@@ -260,17 +274,11 @@ Paul Campbell, C<< <kemitix@gmail.com> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<kemitix@gmail.com>.
-
-=cut
-
-# Uncomment this once the RT account is setup.
-
-#Please report any bugs or feature requests to
-#C<bug-module-bundled-files@rt.cpan.org>, or through the web interface at
-#L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Module-Bundled-Files>.
-#I will be notified, and then you will automatically be notified of progress on
-#your bug as I make changes.
+Please report any bugs or feature requests to
+C<bug-module-bundled-files@rt.cpan.org>, or through the web interface at
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Module-Bundled-Files>.
+I will be notified, and then you will automatically be notified of progress on
+your bug as I make changes.
 
 #=head1 ACKNOWLEDGEMENTS
 

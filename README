@@ -2,7 +2,7 @@ NAME
     Module::Bundled::Files - Access files bundled with Module
 
 VERSION
-    Version 0.01
+    Version 0.03
 
 SYNOPSIS
     Access files installed with your module without needing to specify an
@@ -14,7 +14,18 @@ SYNOPSIS
       my $build = new Module::Build(...);
       map{$build->add_build_element($_);}
         qw{txt html tmpl};
-      # installs all .txt, .html and .tmpl files in the lib/ tree
+      # installs all .txt, .html and .tmpl files found in the lib/ tree
+  
+    Create files:
+
+      Build.PL
+      lib/
+        My/
+          Module.pm
+          Module/
+            index.html
+            data.txt
+            form.tmpl
   
   Object-Oriented Interface
       use base qw{Module::Bundled::Files};
@@ -22,6 +33,7 @@ SYNOPSIS
       if($self->mbf_exists('data.txt')){...}
   
       my $filename = $self->mbf_path('data.txt');
+      # $filename = '/usr/local/share/perl/5.8.7/My/Module/data.txt';
       open my $fh, '<', $filename or die $@;
   
       my $fh = $self->mbf_open('data.txt');
@@ -131,7 +143,13 @@ AUTHOR
     Paul Campbell, "<kemitix@gmail.com>"
 
 BUGS
-    Please report any bugs or feature requests to "kemitix@gmail.com".
+    Please report any bugs or feature requests to
+    "bug-module-bundled-files@rt.cpan.org", or through the web interface at
+    <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Module-Bundled-Files>. I
+    will be notified, and then you will automatically be notified of
+    progress on your bug as I make changes.
+
+    #=head1 ACKNOWLEDGEMENTS
 
 COPYRIGHT & LICENSE
     Copyright 2005 Paul Campbell, all rights reserved.
